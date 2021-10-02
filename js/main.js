@@ -2,11 +2,9 @@
 
 function getRandomInt (from, to) {
   from = Math.ceil(from);
-  to = Math.floor(ro);
-
+  to = Math.floor(to);
 // нужен ли в этом месте тернарный оператор?
 // (from <0 || to <0) ? return (alert('Вводите только положительные значения')) : return (Math.round(Math.random(from, to) * Math.max(from, to)))
-
   if (from <0 || to <0) {
     return (alert('Вводите только положительные значения'));
   }
