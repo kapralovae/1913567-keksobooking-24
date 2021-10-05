@@ -6,9 +6,15 @@ function getRandomInt (from, to) {
 // нужен ли в этом месте тернарный оператор?
 // (from <0 || to <0) ? return (alert('Вводите только положительные значения')) : return (Math.round(Math.random(from, to) * Math.max(from, to)))
   if (from <0 || to <0) {
-    return (alert('Вводите только положительные значения'));
+    return alert('Вводите только положительные значения');
   }
+  if (from > to) {
+    let memory = from;
+    from = to;
+    to = memory;
 
+    return Math.floor(Math.random() * (to - from + 1) + from);
+  }
   return Math.floor(Math.random() * (to - from + 1) + from); // функция Math.random возвращает псевдослучайное число с плавающей запятой из диапазона [0, 1).
 
   // Может показаться заманчивым использовать Math.round() для округления, но это может сделать распределение неравномерным, что может оказаться неприемлемым для ваших нужд.
@@ -20,9 +26,16 @@ function getRandomInt (from, to) {
 getRandomInt();
 
 function getRandomFloat (from, to, lotNumber) {
-  lotNumber = Math.pow(10, lotNumber);
+  lotNumber = Math.pow(10, Math.round(lotNumber));
   if (from <0 || to <0) {
     return alert('Вводите только положительные значения');
+  }
+  if (from > to) {
+    let memory = from;
+    from = to;
+    to = memory;
+
+    return Math.floor((Math.random() * (to - from + 1) + from) * lotNumber) / lotNumber;
   }
 
   return Math.floor((Math.random() * (to - from + 1) + from) * lotNumber) / lotNumber;
