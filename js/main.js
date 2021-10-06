@@ -12,9 +12,7 @@ function getRandomInt (from, to) {
     let memory = from;
     from = to;
     to = memory;
-
-    return Math.floor(Math.random() * (to - from + 1) + from);
-  }
+   }
   return Math.floor(Math.random() * (to - from + 1) + from); // функция Math.random возвращает псевдослучайное число с плавающей запятой из диапазона [0, 1).
 
   // Может показаться заманчивым использовать Math.round() для округления, но это может сделать распределение неравномерным, что может оказаться неприемлемым для ваших нужд.
@@ -34,11 +32,7 @@ function getRandomFloat (from, to, lotNumber) {
     let memory = from;
     from = to;
     to = memory;
-
-    return Math.floor((Math.random() * (to - from + 1) + from) * lotNumber) / lotNumber;
   }
 
-  return Math.floor((Math.random() * (to - from + 1) + from) * lotNumber) / lotNumber;
+  return Math.floor((((((Math.random() * lotNumber) + 1) / lotNumber) * (to - from)) + from) * lotNumber) / lotNumber;
 }
-
-getRandomFloat();
