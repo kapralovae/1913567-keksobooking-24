@@ -96,7 +96,7 @@ function createAdvertisement (countAdvertisement) {
 for (let i = 0; i < countAdvertisement; i++) {
   createMassive.push(objectMassiv.slice());
   }
-  return createMassive; // На выходе функции получаем массив, где  [[author, offer, location],[author, offer, location],[]....]
+  return createMassive; // На выходе функции получаем массив, где элементами являются массивы – [[author, offer, location],[author, offer, location],[]....]
 }
 
 createAdvertisement (10);
