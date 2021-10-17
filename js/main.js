@@ -101,4 +101,4 @@ for (let i = 0; i < countAdvertisement; i++) {
   return createMassive; // На выходе функции получаем массив, где элементами являются массивы – [[author, offer, location],[author, offer, location],[]....]
 }
 
-createAdvertisement (10);
+createAdvertisement (10); // вызов функции
