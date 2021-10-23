@@ -1,4 +1,4 @@
-import {getRandomInt, getRandomFloat} from './get-random-number.jsS';
+import {getRandomInt, getRandomFloat} from './get-random-number.js';
 
 const ARR_FOR_TYPE = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
 const ARR_TIME = ['12:00', '13:00', '14:00'];
