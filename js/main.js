@@ -1,4 +1,4 @@
-import {getRandomInt, getRandomFloat} from './get-random-number';
+import {getRandomInt, getRandomFloat} from './get-random-number.jsS';
 
 const ARR_FOR_TYPE = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
 const ARR_TIME = ['12:00', '13:00', '14:00'];
@@ -6,7 +6,7 @@ const ARR_TIME = ['12:00', '13:00', '14:00'];
 const ARR_PHOTOS = [
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg',
 ];
 
 const ARR_FOR_FEATURES = [
@@ -29,7 +29,7 @@ function getCountPhoto (){
     arrPhotosRandom.push(ARR_PHOTOS[getRandomInt(0, 2)]); //Наполняем массив случайными значениями из ARR_PHOTOS
   }
   return arrPhotosRandom;
-};
+}
 
 const arrFeatures = [];
 
