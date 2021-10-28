@@ -17,20 +17,33 @@ const ARR_FOR_FEATURES = [
   'elevator',
   'conditioner',
 ];
+
+function getAvatarSrc () {
+  const resultRandom = getRandomInt(1,10);
+  let avatarSrc = '';
+  if (resultRandom === 10) {
+    avatarSrc = './img/avatars/user10.png';
+  } else {
+    avatarSrc = `./img/avatars/user0${resultRandom}.png`;
+  }
+  return avatarSrc;
+}
+
 const author = {
-  avatar : `./img/avatars/user0${getRandomInt(1,10)}.png`,
+  avatar : getAvatarSrc (),
 };
+
 
 const arrPhotosRandom = [];
 
 function getCountPhoto (){
-  for (let i = 0; i < getRandomInt(0, 10); i++) { // Длина наполняемого массива от 0 до 10
+  for (let i = 0; i < getRandomInt(1, 11); i++) { // Длина наполняемого массива от 0 до 10
 
     arrPhotosRandom.push(ARR_PHOTOS[getRandomInt(0, 2)]); //Наполняем массив случайными значениями из ARR_PHOTOS
   }
   return arrPhotosRandom;
 }
-
+console.log(arrPhotosRandom);
 const arrFeatures = [];
 
 for (let i = 0; i < getRandomInt(1, 7); i++) {
