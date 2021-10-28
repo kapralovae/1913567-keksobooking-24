@@ -18,7 +18,7 @@ const ARR_FOR_FEATURES = [
   'conditioner',
 ];
 const author = {
-  avatar : 'img/avatars/user' + '0' + `${getRandomInt(1,10)}`,
+  avatar : `./img/avatars/user0${getRandomInt(1,10)}.png`,
 };
 
 const arrPhotosRandom = [];
@@ -46,13 +46,13 @@ const location = {
 
 const offer = {
   title : 'Welcome',
-  address : `${location.lat} ` + `${location.lng}`,
+  address : `${location.lat} ${location.lng}`,
   price : getRandomInt(0, 50000),
   type : ARR_FOR_TYPE[getRandomInt(0,4)],
   rooms : getRandomInt(1, 5),
   guests : getRandomInt(0, 6),
   checkin : ARR_TIME[getRandomInt(0, 2)],
-  cheeckout : ARR_TIME[getRandomInt(0, 2)],
+  checkout : ARR_TIME[getRandomInt(0, 2)],
   features : arrFeatures,
   description : 'Аренда',
   photos : getCountPhoto (),
@@ -70,4 +70,4 @@ function createAdvertisement (countAdvertisement) {
 
 createAdvertisement (10); // вызов функции
 
-export {ARR_FOR_TYPE, ARR_TIME, ARR_PHOTOS, ARR_FOR_FEATURES, author, getCountPhoto, arrFeatures, location, offer};
+export {ARR_FOR_TYPE, ARR_TIME, ARR_PHOTOS, ARR_FOR_FEATURES, author, getCountPhoto, arrFeatures, location, arrPhotosRandom, offer};
