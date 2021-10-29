@@ -1,4 +1,4 @@
-import {ARR_FOR_TYPE, arrPhotosRandom, author, offer} from './data-and-get-object-massive.js';
+import {ARR_FOR_TYPE, typeObject, arrPhotosRandom, author, offer} from './data-and-get-object-massive.js';
 import {getRandomInt} from './get-random-number.js';
 const card = document.querySelector('#card').content;
 const article = card.querySelector('article');
@@ -15,12 +15,8 @@ function getArticle () {
   const popupPrice = copyArticle.querySelector('.popup__text--price');
   popupPrice.textContent = `${offer.price} ₽/ночь`;
 
-  const popupTypeTranslate = [];
-  for (let i = 0; i < ARR_FOR_TYPE.length; i++) {
-    popupTypeTranslate.push(ARR_FOR_TYPE[i]);
-  }
   const popupType = copyArticle.querySelector('.popup__type');
-  popupType.textContent = popupTypeTranslate[getRandomInt(0,4)];
+  popupType.textContent = typeObject[ARR_FOR_TYPE[getRandomInt(0,4)]];
 
   let popupCapacity = copyArticle.querySelector('.popup__text--capacity');
   popupCapacity.textContent = `${offer.rooms} комнаты для ${offer.guests} гостей`;
@@ -37,9 +33,10 @@ function getArticle () {
 
   const popupPhoto = copyArticle.querySelector('.popup__photos');
   const popupPhotoImg = popupPhoto.querySelector('img');
-  const elementImg = popupPhotoImg.cloneNode(true);
+
   popupPhoto.innerHTML = '';
   for (let i = 0; i < arrPhotosRandom.length; i++) {
+    const elementImg = popupPhotoImg.cloneNode(true);
     elementImg.src = arrPhotosRandom[i];
     popupPhoto.appendChild(elementImg);
   }
