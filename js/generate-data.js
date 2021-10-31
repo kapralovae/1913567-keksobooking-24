@@ -18,7 +18,7 @@ function getArticle () {
   const popupType = copyArticle.querySelector('.popup__type');
   popupType.textContent = typeObject[ARR_FOR_TYPE[getRandomInt(0,4)]];
 
-  let popupCapacity = copyArticle.querySelector('.popup__text--capacity');
+  const popupCapacity = copyArticle.querySelector('.popup__text--capacity');
   popupCapacity.textContent = `${offer.rooms} комнаты для ${offer.guests} гостей`;
 
   const popupTime = copyArticle.querySelector('.popup__text--time');
