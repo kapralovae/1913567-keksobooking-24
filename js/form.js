@@ -1,3 +1,4 @@
+//import {timeIn, timeOut,} from './generate-data.js';
 const naticeForm = document.querySelector('form.ad-form');
 const naticeFieldset = naticeForm.querySelectorAll('fieldset');
 const mapForm = document.querySelector('form.map__filters');
@@ -5,8 +6,13 @@ const mapSelect = mapForm.querySelectorAll('select');
 const mapFieldset = mapForm.querySelectorAll('fieldset');
 const titleInput = document.querySelector('#title');
 const priceInput = document.querySelector('#price');
-const roomSelect = document.querySelector('#room_number');
 const capacitySelect = document.querySelector('#capacity');
+const capacitySelectOptions = capacitySelect.querySelectorAll('option');
+const roomSelect = document.querySelector('#room_number');
+const typeSelect = document.querySelector('#type');
+const timeIn = document.querySelector('#timein');
+const timeOut = document.querySelector('#timeout');
+
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 const MIN_PRICE_VALUE = 1000;
@@ -74,7 +80,6 @@ priceInput.addEventListener('input', () => {
   priceInput.reportValidity();
 });
 
-const capacitySelectOptions = capacitySelect.querySelectorAll('option');
 
 function disabledOptions () {
   for (let i = 0; i < capacitySelectOptions.length; i++) {
@@ -107,7 +112,7 @@ roomSelect.addEventListener('change', () => {
   }
 });
 
-const typeSelect = document.querySelector('#type');
+
 const priceType = {
   priceBungalow : 0,
   priceFlat : 1000,
@@ -147,8 +152,6 @@ typeSelect.addEventListener('change', () => {
   priceInput.reportValidity();
 });
 
-const timeIn = document.querySelector('#timein');
-const timeOut = document.querySelector('#timeout');
 
 timeIn.addEventListener('change', () => {
   timeOut.value = timeIn.value;
@@ -157,4 +160,4 @@ timeIn.addEventListener('change', () => {
 timeOut.addEventListener('change', () => {
   timeIn.value = timeOut.value;
 });
-export {inActivePage, activePage};
+export {titleInput, inActivePage, activePage, valueNumber, capacitySelect, roomSelect, typeSelect, timeIn, timeOut};
