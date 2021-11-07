@@ -9,8 +9,11 @@ const addressInput = document.querySelector('#address');
 const descriptionText = document.querySelector('#description');
 
 const article = card.querySelector('article');
-const fragment = document.createDocumentFragment();
-const copyArticle = article.cloneNode(true);
+
+
+
+function getArticle () {
+	const copyArticle = article.cloneNode(true);
 const popupTitle = copyArticle.querySelector('.popup__title');
 const popupAddress = copyArticle.querySelector('.popup__text--address');
 const popupPrice = copyArticle.querySelector('.popup__text--price');
@@ -21,8 +24,7 @@ const popupFeature = copyArticle.querySelector('.popup__features');
 const popupDescription = copyArticle.querySelector('.popup__description');
 const popupPhoto = copyArticle.querySelector('.popup__photos');
 const popupAvatar = copyArticle.querySelector('.popup__avatar');
-
-function getArticle () {
+	const fragment = document.createDocumentFragment();
   popupTitle.textContent = titleInput.value;
   popupAddress.textContent = addressInput.value;
   popupPrice.textContent = `${valueNumber} ₽/ночь`;
@@ -54,8 +56,8 @@ function getArticle () {
   fragment.appendChild(popupFeature);
   fragment.appendChild(popupDescription);
   fragment.appendChild(popupPhoto);
-
-  return fragment;
+console.log(fragment);
+  return fragment.outerHTML;
 }
 
 export {getArticle, addressInput, roomSelect, capacitySelect};

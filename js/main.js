@@ -1,3 +1,4 @@
+import {getRandomFloat} from './get-random-number.js';
 import {getArticle, addressInput} from './generate-data.js';
 import {inActivePage, activePage} from './form.js';
 
@@ -48,8 +49,8 @@ function createMarker (){
   const {lat, lng} = mainMarker.getLatLng();
   const addMarker = L.marker(
     {
-      lat,
-      lng,
+      lat: getRandomFloat(35.663, 35.71, 5),
+      lng: getRandomFloat(139.735, 139.8, 5),
     },
     {
       icon,
@@ -65,9 +66,15 @@ function createMarker (){
   });
 }
 
+for (let i = 0; i<15; i++) {
+
+	createMarker ();
+}
+
 const submitButton = document.querySelector('.ad-form__submit');
 
-submitButton.addEventListener('click', () => {
+submitButton.addEventListener('submit', (evt) => {
+	evt.preventDefault();
   createMarker ();
 
 });
