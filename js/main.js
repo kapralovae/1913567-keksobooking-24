@@ -1,6 +1,7 @@
 import {getRandomFloat} from './get-random-number.js';
 import {getArticle, addressInput} from './generate-data.js';
 import {inActivePage, activePage} from './form.js';
+import {createCardData} from './data-and-get-object-massive.js';
 
 inActivePage();
 const mainPinIcon = L.icon({
@@ -40,42 +41,42 @@ mainMarker.on('move', (evt) => {
 });
 
 
-function createMarker (){
+function createMarker (map){
+  const cardData = createCardData();
   const icon = L.icon({
     iconUrl: 'img/pin.svg',
     iconSize: [40, 40],
     iconAnchor: [20, 40],
   });
-  const {lat, lng} = mainMarker.getLatLng();
+
   const addMarker = L.marker(
-    {
-      lat: getRandomFloat(35.663, 35.71, 5),
-      lng: getRandomFloat(139.735, 139.8, 5),
-    },
+    cardData.location,
     {
       icon,
     },
   );
 
-
-  addMarker.addTo(mymap).bindPopup(getArticle());
+  addMarker
+    .bindPopup(getArticle(cardData))
+    .addTo(map);
 
   mainMarker.setLatLng({
     lat: 35.68386,
     lng: 139.7635,
   });
+ // return addMarker;
 }
 
-for (let i = 0; i<15; i++) {
+for (let i = 0; i<5; i++) {
 
-	createMarker ();
+ createMarker (mymap);
 }
 
 const submitButton = document.querySelector('.ad-form__submit');
 
-submitButton.addEventListener('submit', (evt) => {
-	evt.preventDefault();
-  createMarker ();
+submitButton.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  createMarker (mymap);
 
 });
 
