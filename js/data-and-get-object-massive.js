@@ -37,20 +37,16 @@ function getAvatarSrc () {
   return avatarSrc;
 }
 
-const author = {
-  avatar : getAvatarSrc (),
-};
-
-
-const arrPhotosRandom = [];
 
 function getCountPhoto (){
-  for (let i = 0; i < getRandomInt(1, 11); i++) { // Длина наполняемого массива от 0 до 10
-
+  const arrPhotosRandom = [];
+  for (let i = 0; i < getRandomInt(1, 2); i++) { // Длина наполняемого массива от 0 до 10
     arrPhotosRandom.push(ARR_PHOTOS[getRandomInt(0, ARR_PHOTOS.length - 1)]); //Наполняем массив случайными значениями из ARR_PHOTOS
   }
+  console.log(arrPhotosRandom);
   return arrPhotosRandom;
 }
+
 
 const arrFeatures = [];
 
@@ -60,35 +56,40 @@ for (let i = 0; i < getRandomInt(0, ARR_FOR_FEATURES.length); i++) {
 
 }
 
-const location = {
-  lat : getRandomFloat(35.65000, 35.70000, 5),
-  lng : getRandomFloat(139.70000, 139.80000, 5),
-};
+const arrayTitles = ['title1', 'title2', 'title3'];
+const arrayDescription = ['description1', 'description2', 'description3'];
 
-const offer = {
-  title : 'Welcome',
-  address : `${location.lat} ${location.lng}`,
-  price : getRandomInt(0, 50000),
-  type : ARR_FOR_TYPE[getRandomInt(0, ARR_FOR_TYPE.length - 1)],
-  rooms : getRandomInt(1, 5),
-  guests : getRandomInt(0, 6),
-  checkin : ARR_TIME[getRandomInt(0, ARR_TIME.length - 1)],
-  checkout : ARR_TIME[getRandomInt(0, ARR_TIME.length - 1)],
-  features : arrFeatures,
-  description : 'Аренда',
-  photos : getCountPhoto (),
-};
+function createCardData() {
 
-const objectMassiv = [author, offer, location];
-const createMassive = [];
 
-function createAdvertisement (countAdvertisement) {
-  for (let i = 0; i < countAdvertisement; i++) {
-    createMassive.push(objectMassiv.slice());
-  }
-  return createMassive; // На выходе функции получаем массив, где элементами являются массивы – [[author, offer, location],[author, offer, location],[]....]
+  const generatePhoto = {
+    arrPhotos : getCountPhoto (),
+  };
+
+  const author = {
+    avatar : getAvatarSrc (),
+  };
+
+  const location = {
+    lat : getRandomFloat(35.65000, 35.70000, 5),
+    lng : getRandomFloat(139.70000, 139.80000, 5),
+  };
+  const offer = {
+    title : arrayTitles[getRandomInt(0,2)],
+    address : `${location.lat} ${location.lng}`,
+    price : getRandomInt(0, 50000),
+    type : ARR_FOR_TYPE[getRandomInt(0, ARR_FOR_TYPE.length - 1)],
+    rooms : getRandomInt(1, 5),
+    guests : getRandomInt(0, 6),
+    checkin : ARR_TIME[getRandomInt(0, ARR_TIME.length - 1)],
+    checkout : ARR_TIME[getRandomInt(0, ARR_TIME.length - 1)],
+    features : arrFeatures,
+    description : arrayDescription[getRandomInt(0,2)],
+    photos : generatePhoto.arrPhotos,
+  };
+
+  return {author, offer, location};
 }
+console.log(createCardData());
 
-createAdvertisement (10); // вызов функции
-
-export {ARR_FOR_TYPE, typeObject, ARR_TIME, ARR_PHOTOS, ARR_FOR_FEATURES, author, getCountPhoto, arrFeatures, location, arrPhotosRandom, offer};
+export {ARR_FOR_TYPE, typeObject, ARR_TIME, ARR_PHOTOS, ARR_FOR_FEATURES, arrFeatures, createCardData};

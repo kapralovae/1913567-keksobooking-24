@@ -1,49 +1,56 @@
-import {ARR_FOR_TYPE, typeObject, arrPhotosRandom, author, offer} from './data-and-get-object-massive.js';
-import {getRandomInt} from './get-random-number.js';
+import {capacitySelect, roomSelect} from './form.js';
+
+
 const card = document.querySelector('#card').content;
+
+const addressInput = document.querySelector('#address');
+
+
+const descriptionText = document.querySelector('#description');
+
 const article = card.querySelector('article');
-const fragment = document.createDocumentFragment();
-const copyArticle = article.cloneNode(true);
 
-function getArticle () {
+
+function getArticle (cardData) {
+  const copyArticle = article.cloneNode(true);
   const popupTitle = copyArticle.querySelector('.popup__title');
-  popupTitle.textContent = offer.title;
-
   const popupAddress = copyArticle.querySelector('.popup__text--address');
-  popupAddress.textContent = offer.address;
-
   const popupPrice = copyArticle.querySelector('.popup__text--price');
-  popupPrice.textContent = `${offer.price} ₽/ночь`;
-
   const popupType = copyArticle.querySelector('.popup__type');
-  popupType.textContent = typeObject[ARR_FOR_TYPE[getRandomInt(0,4)]];
-
   const popupCapacity = copyArticle.querySelector('.popup__text--capacity');
-  popupCapacity.textContent = `${offer.rooms} комнаты для ${offer.guests} гостей`;
-
   const popupTime = copyArticle.querySelector('.popup__text--time');
-  popupTime.textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
-
   const popupFeature = copyArticle.querySelector('.popup__features');
-  popupFeature.textContent = offer.features;
-
   const popupDescription = copyArticle.querySelector('.popup__description');
-  popupDescription.textContent = offer.description;
-
-
   const popupPhoto = copyArticle.querySelector('.popup__photos');
-  const popupPhotoImg = popupPhoto.querySelector('img');
+  const popupAvatar = copyArticle.querySelector('.popup__avatar');
+  const fragment = document.createDocumentFragment();
 
+  const popupPhotoImg = popupPhoto.querySelector('img');
   popupPhoto.innerHTML = '';
-  for (let i = 0; i < arrPhotosRandom.length; i++) {
+
+  console.log(cardData.offer.photos.length);
+  for (let i = 0; i < cardData.offer.photos.length - 1; i++) {
     const elementImg = popupPhotoImg.cloneNode(true);
-    elementImg.src = arrPhotosRandom[i];
+    elementImg.src = cardData.offer.photos[i];
     popupPhoto.appendChild(elementImg);
+
   }
 
-  const popupAvatar = copyArticle.querySelector('.popup__avatar');
-  popupAvatar.src = author.avatar;
+  console.log(cardData.offer.photos.length);
 
+  popupTitle.textContent = cardData.offer.title;
+  popupAddress.textContent = cardData.offer.address;
+  popupPrice.textContent = `${cardData.offer.price} ₽/ночь`;
+  popupType.textContent = cardData.offer.type;
+  popupCapacity.textContent = `${cardData.offer.rooms} комнаты для ${cardData.offer.guests} гостей`;
+  popupTime.textContent = `Заезд после ${cardData.offer.checkin}, выезд до ${cardData.offer.checkout}`;
+  popupFeature.textContent = cardData.offer.features;
+  popupDescription.textContent = cardData.offer.description;
+
+
+  popupAvatar.src = cardData.author.avatar;
+
+  fragment.appendChild(popupAvatar);
   fragment.appendChild(popupTitle);
   fragment.appendChild(popupAddress);
   fragment.appendChild(popupPrice);
@@ -53,9 +60,8 @@ function getArticle () {
   fragment.appendChild(popupFeature);
   fragment.appendChild(popupDescription);
   fragment.appendChild(popupPhoto);
-  fragment.appendChild(popupAvatar);
 
   return fragment;
 }
 
-export {getArticle};
+export {getArticle, addressInput, roomSelect, capacitySelect};
