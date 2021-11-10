@@ -1,5 +1,4 @@
 import {capacitySelect, roomSelect} from './form.js';
-import {createCardData} from './data-and-get-object-massive.js';
 
 
 const card = document.querySelector('#card').content;

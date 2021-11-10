@@ -1,4 +1,3 @@
-import {getRandomFloat} from './get-random-number.js';
 import {getArticle, addressInput} from './generate-data.js';
 import {inActivePage, activePage} from './form.js';
 import {createCardData} from './data-and-get-object-massive.js';
@@ -64,12 +63,12 @@ function createMarker (map){
     lat: 35.68386,
     lng: 139.7635,
   });
- // return addMarker;
+  return addMarker;
 }
 
-for (let i = 0; i<5; i++) {
+for (let i = 0; i<15; i++) {
 
- createMarker (mymap);
+  createMarker (mymap);
 }
 
 const submitButton = document.querySelector('.ad-form__submit');

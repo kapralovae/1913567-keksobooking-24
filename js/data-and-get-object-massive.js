@@ -38,17 +38,16 @@ function getAvatarSrc () {
 }
 
 
-const arrPhotosRandom = [];
-
 function getCountPhoto (){
-  for (let i = 0; i < getRandomInt(0, 5); i++) { // Длина наполняемого массива от 0 до 10
-
+  const arrPhotosRandom = [];
+  for (let i = 0; i < getRandomInt(1, 2); i++) { // Длина наполняемого массива от 0 до 10
     arrPhotosRandom.push(ARR_PHOTOS[getRandomInt(0, ARR_PHOTOS.length - 1)]); //Наполняем массив случайными значениями из ARR_PHOTOS
   }
+  console.log(arrPhotosRandom);
   return arrPhotosRandom;
 }
 
-console.log(getCountPhoto());
+
 const arrFeatures = [];
 
 for (let i = 0; i < getRandomInt(0, ARR_FOR_FEATURES.length); i++) {
@@ -61,6 +60,11 @@ const arrayTitles = ['title1', 'title2', 'title3'];
 const arrayDescription = ['description1', 'description2', 'description3'];
 
 function createCardData() {
+
+
+  const generatePhoto = {
+    arrPhotos : getCountPhoto (),
+  };
 
   const author = {
     avatar : getAvatarSrc (),
@@ -81,10 +85,11 @@ function createCardData() {
     checkout : ARR_TIME[getRandomInt(0, ARR_TIME.length - 1)],
     features : arrFeatures,
     description : arrayDescription[getRandomInt(0,2)],
-    photos : getCountPhoto (),
+    photos : generatePhoto.arrPhotos,
   };
+
   return {author, offer, location};
 }
 console.log(createCardData());
 
-export {ARR_FOR_TYPE, typeObject, ARR_TIME, ARR_PHOTOS, ARR_FOR_FEATURES, getCountPhoto, arrFeatures, arrPhotosRandom, createCardData};
+export {ARR_FOR_TYPE, typeObject, ARR_TIME, ARR_PHOTOS, ARR_FOR_FEATURES, arrFeatures, createCardData};

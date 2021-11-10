@@ -4,7 +4,7 @@ function getRandomInt (from, to) {
   from = Math.ceil(from);
   to = Math.floor(to);
   if (from <0 || to <0) {
-    return alert('Вводите только положительные значения');
+    return 0;
   }
   if (from > to) {
     const memory = from;
@@ -19,7 +19,7 @@ getRandomInt();
 function getRandomFloat (from, to, lotNumber) {
   lotNumber = Math.pow(10, Math.round(lotNumber));
   if (from <0 || to <0) {
-    return alert('Вводите только положительные значения');
+    return 0;
   }
   if (from > to) {
     const memory = from;
