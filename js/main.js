@@ -1,6 +1,13 @@
 import {getArticle, addressInput} from './generate-data.js';
 import {inActivePage, activePage} from './form.js';
-import {createCardData} from './data-and-get-object-massive.js';
+import {getRandomFloat} from './get-random-number.js';
+//import {createCardData} from './data-and-get-object-massive.js';
+//import {createLoader} from './server-data.js';
+fetch('https://24.javascript.pages.academy/keksobooking/data')
+  .then((response) => response.json())
+  .then((markers) => {
+    getArticle(markers);
+  });
 
 inActivePage();
 const mainPinIcon = L.icon({
@@ -41,7 +48,8 @@ mainMarker.on('move', (evt) => {
 
 
 function createMarker (map){
-  const cardData = createCardData();
+ // const cardData = createCardData();
+
   const icon = L.icon({
     iconUrl: 'img/pin.svg',
     iconSize: [40, 40],
@@ -49,14 +57,18 @@ function createMarker (map){
   });
 
   const addMarker = L.marker(
-    cardData.location,
+    {
+      lat : getRandomFloat(35.67, 35.69, 5),
+      lng: getRandomFloat(139.7, 139.77, 5),
+    },
+   // markers.location,
     {
       icon,
     },
   );
 
   addMarker
-    .bindPopup(getArticle(cardData))
+    .bindPopup(getArticle())
     .addTo(map);
 
   mainMarker.setLatLng({
@@ -65,10 +77,10 @@ function createMarker (map){
   });
   return addMarker;
 }
-
+createMarker();
 for (let i = 0; i<15; i++) {
 
-  createMarker (mymap);
+  //createMarker (mymap);
 }
 
 const submitButton = document.querySelector('.ad-form__submit');
@@ -78,4 +90,9 @@ submitButton.addEventListener('click', (evt) => {
   createMarker (mymap);
 
 });
+
+//const loadMarkers = createLoader(console.log, console.error);
+
+// loadMarkers();
+
 
