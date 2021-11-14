@@ -13,6 +13,7 @@ const typeSelect = document.querySelector('#type');
 const timeIn = document.querySelector('#timein');
 const timeOut = document.querySelector('#timeout');
 
+
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 const MIN_PRICE_VALUE = 1000;
@@ -160,4 +161,6 @@ timeIn.addEventListener('change', () => {
 timeOut.addEventListener('change', () => {
   timeIn.value = timeOut.value;
 });
+
+
 export {titleInput, inActivePage, activePage, valueNumber, capacitySelect, roomSelect, typeSelect, timeIn, timeOut};

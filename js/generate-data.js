@@ -12,11 +12,9 @@ const article = card.querySelector('article');
 
 
 function getArticle (cardData) {
-  console.log(cardData);
+
   const fragment = document.createDocumentFragment();
-for (let i = 0; i < cardData.length; i++) {
-  let qwe = [];
-  qwe = cardData[i];
+
 
   const copyArticle = article.cloneNode(true);
   const popupTitle = copyArticle.querySelector('.popup__title');
@@ -31,31 +29,28 @@ for (let i = 0; i < cardData.length; i++) {
   const popupAvatar = copyArticle.querySelector('.popup__avatar');
 
 
-  // const popupPhotoImg = popupPhoto.querySelector('img');
-  // popupPhoto.innerHTML = '';
+  const popupPhotoImg = popupPhoto.querySelector('img');
+  popupPhoto.innerHTML = '';
 
-  const qwer1 = qwe.offer;
-  //const qwer2 = qwe.location;
-  const qwer3 = qwe.author;
-  // for (let j = 0; i < qwer1.photos.length - 1; i++) {
-  //   const elementImg = popupPhotoImg.cloneNode(true);
-  //   elementImg.src = qwer1.photos[i];
-  //   popupPhoto.appendChild(elementImg);
+  if ('photos' in cardData.offer) {
+    for (let i = 0; i < cardData.offer.photos.length; i++) {
+      const elementImg = popupPhotoImg.cloneNode(true);
+      elementImg.src = cardData.offer.photos[i];
+      popupPhoto.appendChild(elementImg);
+    }
+  }
 
-  // }
-
-
-  popupTitle.textContent = qwer1.title;
-  popupAddress.textContent = qwer1.address;
-  popupPrice.textContent = `${qwer1.price} ₽/ночь`;
-  popupType.textContent = qwer1.type;
-  popupCapacity.textContent = `${qwer1.rooms} комнаты для ${qwer1.guests} гостей`;
-  popupTime.textContent = `Заезд после ${qwer1.checkin}, выезд до ${qwer1.checkout}`;
-  popupFeature.textContent = qwer1.features;
-  popupDescription.textContent = qwer1.description;
+  popupTitle.textContent = cardData.offer.title;
+  popupAddress.textContent = cardData.offer.address;
+  popupPrice.textContent = `${cardData.offer.price} ₽/ночь`;
+  popupType.textContent = cardData.offer.type;
+  popupCapacity.textContent = `${cardData.offer.rooms} комнаты для ${cardData.offer.guests} гостей`;
+  popupTime.textContent = `Заезд после ${cardData.offer.checkin}, выезд до ${cardData.offer.checkout}`;
+  popupFeature.textContent = cardData.offer.features;
+  popupDescription.textContent = cardData.offer.description;
 
 
-  popupAvatar.src = qwer3.avatar;
+  popupAvatar.src = cardData.author.avatar;
 
   fragment.appendChild(popupAvatar);
   fragment.appendChild(popupTitle);
@@ -67,7 +62,7 @@ for (let i = 0; i < cardData.length; i++) {
   fragment.appendChild(popupFeature);
   fragment.appendChild(popupDescription);
   fragment.appendChild(popupPhoto);
-}
+
   return fragment;
 }
 
