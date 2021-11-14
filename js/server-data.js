@@ -37,11 +37,13 @@ L.tileLayer(
 
 
 mainMarker.addTo(mymap);
+const COUNT_MARKERS = 10;
 
 fetch('https://24.javascript.pages.academy/keksobooking/data')
   .then((response) => response.json())
-  .then((markers) => {
-    for(let i=0;i<markers.length - 35;i++) {
+  .then((serverMarkers) => {
+    const markers = serverMarkers.slice(0, COUNT_MARKERS);
+    for(let i = 0; i < markers.length; i++) {
       createMarker(mymap,markers[i]);
     }
   });
@@ -80,4 +82,69 @@ mainMarker.setLatLng({
   lat: 35.68386,
   lng: 139.7635,
 });
+
+
+function featuresFilter () {
+  const wifiFilter = document.querySelector('#filter-wifi');
+  const dishwasherFilter = document.querySelector('#filter-dishwasher');
+  const parkingFilter = document.querySelector('#filter-parking');
+  const washerFilter = document.querySelector('#filter-washer');
+  const elevatorFilter = document.querySelector('#filter-elevator');
+  const conditionerFilter = document.querySelector('#filter-conditioner');
+
+  let rank = 0;
+
+  if (wifiFilter.cheked) {
+    rank += 1;
+  }
+  if (dishwasherFilter.cheked) {
+    rank += 1;
+  }
+  if (parkingFilter.cheked) {
+    rank += 1;
+  }
+  if (washerFilter.cheked) {
+    rank += 1;
+  }
+  if (elevatorFilter.cheked) {
+    rank += 1;
+  }
+  if (conditionerFilter.cheked) {
+    rank += 1;
+  }
+  return rank;
+}
+
+const typeFilter = document.querySelector('#housing-type');
+typeFilter.addEventListener('change', () => {
+
+  const selectType = typeFilter.value;
+  const removeMarkers = document.querySelector('.leaflet-marker-pane');
+  if (selectType !== 'any') {
+    removeMarkers.remove();
+  }
+  markers.filter();
+
+});
+
+const priceFilter = document.querySelector('#housing-price');
+priceFilter.addEventListener('change', () => {
+
+  const selectPrice = priceFilter.value;
+});
+
+const roomsFilter = document.querySelector('#housing-rooms');
+roomsFilter.addEventListener('change', () => {
+	const selectRooms = roomsFilter.value;
+});
+
+const guestsFilter = document.querySelector('#housing-guests');
+guestsFilter.addEventListener('change', () => {
+	const selectGuests = guestsFilter.value;
+});
+
+// function () {
+// 	markers[i].offer.type === selectType
+// };
+
 export {setAddressInput};
