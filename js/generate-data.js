@@ -6,12 +6,16 @@ const card = document.querySelector('#card').content;
 const addressInput = document.querySelector('#address');
 
 
-const descriptionText = document.querySelector('#description');
+//const descriptionText = document.querySelector('#description');
 
 const article = card.querySelector('article');
 
 
 function getArticle (cardData) {
+
+  const fragment = document.createDocumentFragment();
+
+
   const copyArticle = article.cloneNode(true);
   const popupTitle = copyArticle.querySelector('.popup__title');
   const popupAddress = copyArticle.querySelector('.popup__text--address');
@@ -23,20 +27,18 @@ function getArticle (cardData) {
   const popupDescription = copyArticle.querySelector('.popup__description');
   const popupPhoto = copyArticle.querySelector('.popup__photos');
   const popupAvatar = copyArticle.querySelector('.popup__avatar');
-  const fragment = document.createDocumentFragment();
+
 
   const popupPhotoImg = popupPhoto.querySelector('img');
   popupPhoto.innerHTML = '';
 
-  console.log(cardData.offer.photos.length);
-  for (let i = 0; i < cardData.offer.photos.length - 1; i++) {
-    const elementImg = popupPhotoImg.cloneNode(true);
-    elementImg.src = cardData.offer.photos[i];
-    popupPhoto.appendChild(elementImg);
-
+  if ('photos' in cardData.offer) {
+    for (let i = 0; i < cardData.offer.photos.length; i++) {
+      const elementImg = popupPhotoImg.cloneNode(true);
+      elementImg.src = cardData.offer.photos[i];
+      popupPhoto.appendChild(elementImg);
+    }
   }
-
-  console.log(cardData.offer.photos.length);
 
   popupTitle.textContent = cardData.offer.title;
   popupAddress.textContent = cardData.offer.address;

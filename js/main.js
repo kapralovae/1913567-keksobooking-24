@@ -1,81 +1,81 @@
-import {getArticle, addressInput} from './generate-data.js';
-import {inActivePage, activePage} from './form.js';
-import {createCardData} from './data-and-get-object-massive.js';
+import './server-data.js';
+import { setAddressInput } from './server-data.js';
 
-inActivePage();
-const mainPinIcon = L.icon({
-  iconUrl: 'leaflet/images/marker-icon.png',
-  iconSize: [50, 50],
-  iconAnchor: [25, 50],
-});
-const mainMarker = L.marker(
-  {
-    lat: 35.68386,
-    lng: 139.7635,
-  },
-  {
-    draggable: true,
-    icon: mainPinIcon,
-  },
-);
-
-const mymap = L.map('map-canvas').on('load', () => {
-  addressInput.value = mainMarker._latlng;
-  activePage ();
-}).setView([35.68386, 139.7635], 13);
-
-L.tileLayer(
-  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-  {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  },
-).addTo(mymap);
-
-
-mainMarker.addTo(mymap);
-
-
-mainMarker.on('move', (evt) => {
-  addressInput.value = evt.target.getLatLng();
-});
-
-
-function createMarker (map){
-  const cardData = createCardData();
-  const icon = L.icon({
-    iconUrl: 'img/pin.svg',
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
-  });
-
-  const addMarker = L.marker(
-    cardData.location,
-    {
-      icon,
-    },
-  );
-
-  addMarker
-    .bindPopup(getArticle(cardData))
-    .addTo(map);
-
-  mainMarker.setLatLng({
-    lat: 35.68386,
-    lng: 139.7635,
-  });
-  return addMarker;
+const sectionMarkers = document.querySelector('.notice');
+const formForMarkers = sectionMarkers.querySelector('form');
+const body = document.querySelector('body');
+const ALERT_SHOW_TIME = 3000;
+const successMessage = document.querySelector('#success').content.cloneNode(true);
+const successParagraphMessage = successMessage.querySelector('p');
+function isEscapeKey (evt) {
+  return evt.key === 'Escape';
 }
 
-for (let i = 0; i<15; i++) {
+function setUserFormSubmit (onSuccess) {
+  formForMarkers.addEventListener('submit', (evt) => {
+    evt.preventDefault();
 
-  createMarker (mymap);
+    const formData = new FormData(formForMarkers);
+    fetch(
+      'https://24.javascript.pages.academy/keksobooking6',
+      {
+        method: 'POST',
+        body: formData,
+      },
+    ).then((response) => {
+      if (response.ok) {
+        onSuccess();
+      } else {
+        showAlert();
+      }
+    })
+      .catch(() => {
+        showAlert();
+      });
+  });}
+function resetForm () {
+
+  body.style.backgroundColor = '#00ff00';
+  setTimeout(() => {
+    body.style.backgroundColor = '#f0f0ea';
+  }, ALERT_SHOW_TIME);
+  formForMarkers.reset();
+  setAddressInput();
+  successParagraphMessage.textContent = 'Данные успешно отправлены';
+  const successModalWindow = successMessage.querySelector('div');
+  body.insertAdjacentElement('beforeend', successModalWindow);
+  window.addEventListener('click', () => {
+    body.removeChild(successModalWindow);
+  });
+
+  document.addEventListener('keydown', (evt) => {
+    if(isEscapeKey(evt)) {
+      evt.preventDefault();
+      body.removeChild(successModalWindow);
+    }
+  });}
+function showAlert () {
+  const errorMessage = document.querySelector('#error').content;
+  const copyErrorMessage = errorMessage.cloneNode(true);
+  const errorParagraphMessage = copyErrorMessage.querySelector('p');
+  errorParagraphMessage.textContent = 'Всё плохо!';
+
+  body.style.backgroundColor = '#ff0000';
+  setTimeout(() => {
+    body.style.backgroundColor = '#f0f0ea';
+  }, ALERT_SHOW_TIME);
+  const errorModalWindow = copyErrorMessage.querySelector('div');
+  body.insertAdjacentElement('beforeend', errorModalWindow);
+
+  window.addEventListener('click', () => {
+    body.removeChild(errorModalWindow);
+  });
+  document.addEventListener('keydown', (evt) => {
+    if(isEscapeKey(evt)) {
+      evt.preventDefault();
+      body.removeChild(errorModalWindow);
+    }
+  });
 }
 
-const submitButton = document.querySelector('.ad-form__submit');
-
-submitButton.addEventListener('click', (evt) => {
-  evt.preventDefault();
-  createMarker (mymap);
-
-});
-
+setUserFormSubmit(resetForm);
