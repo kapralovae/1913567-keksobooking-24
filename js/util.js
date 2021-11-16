@@ -1,36 +1,32 @@
 import { setAddressInput } from './server-data.js';
+import { successModalWindow, errorModalWindow } from './form.js';
 
 const ALERT_SHOW_TIME = 3000;
 const body = document.querySelector('body');
 const sectionMarkers = document.querySelector('.notice');
 const formForMarkers = sectionMarkers.querySelector('form');
-const successMessage = document.querySelector('#success').content.cloneNode(true);
-const successParagraphMessage = successMessage.querySelector('p');
+
 
 function isEscapeKey (evt) {
   return evt.key === 'Escape';
 }
 
 function showAlert () {
-  const errorMessage = document.querySelector('#error').content;
-  const copyErrorMessage = errorMessage.cloneNode(true);
-  const errorParagraphMessage = copyErrorMessage.querySelector('p');
-  errorParagraphMessage.textContent = 'Всё плохо!';
 
   body.style.backgroundColor = '#ff0000';
   setTimeout(() => {
     body.style.backgroundColor = '#f0f0ea';
   }, ALERT_SHOW_TIME);
-  const errorModalWindow = copyErrorMessage.querySelector('div');
-  body.insertAdjacentElement('beforeend', errorModalWindow);
 
+
+  errorModalWindow.style.display = 'block';
   window.addEventListener('click', () => {
-    body.removeChild(errorModalWindow);
+    errorModalWindow.style.display = 'none';
   });
   document.addEventListener('keydown', (evt) => {
     if(isEscapeKey(evt)) {
       evt.preventDefault();
-      body.removeChild(errorModalWindow);
+      errorModalWindow.style.display = 'none';
     }
   });
 }
@@ -43,18 +39,17 @@ function resetForm () {
   }, ALERT_SHOW_TIME);
   formForMarkers.reset();
   setAddressInput();
-  successParagraphMessage.textContent = 'Данные успешно отправлены';
-  const successModalWindow = successMessage.querySelector('div');
-  body.insertAdjacentElement('beforeend', successModalWindow);
+
+  successModalWindow.style.display = 'block';
   window.addEventListener('click', () => {
-    body.removeChild(successModalWindow);
+    successModalWindow.style.display = 'none';
   });
 
   document.addEventListener('keydown', (evt) => {
     if(isEscapeKey(evt)) {
       evt.preventDefault();
-      body.removeChild(successModalWindow);
+      successModalWindow.style.display = 'none';
     }
   });}
 
-export {isEscapeKey, showAlert, resetForm, formForMarkers};
+export {isEscapeKey, showAlert, resetForm, formForMarkers, body};

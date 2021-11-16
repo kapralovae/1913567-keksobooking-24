@@ -1,5 +1,6 @@
 import {getArticle, addressInput} from './generate-data.js';
 import {inActivePage, activePage} from './form.js';
+import { getData, serverMarkers, paintMarkers, removeMarkers, paintFilterMarker } from './api.js';
 
 
 inActivePage();
@@ -26,6 +27,13 @@ function setAddressInput() {
 const mymap = L.map('map-canvas').on('load', () => {
   setAddressInput();
   activePage ();
+  getData();
+  document.querySelectorAll('.map__filter').forEach((item) => {
+    item.onchange = selectFilter;
+  });
+  document.querySelectorAll('.map__checkbox').forEach((item) => {
+    item.onchange = selectFilter;
+  });
 }).setView([35.68386, 139.7635], 13);
 
 L.tileLayer(
@@ -37,22 +45,12 @@ L.tileLayer(
 
 
 mainMarker.addTo(mymap);
-const COUNT_MARKERS = 10;
-
-fetch('https://24.javascript.pages.academy/keksobooking/data')
-  .then((response) => response.json())
-  .then((serverMarkers) => {
-    const markers = serverMarkers.slice(0, COUNT_MARKERS);
-    for(let i = 0; i < markers.length; i++) {
-      createMarker(mymap,markers[i]);
-    }
-  });
 
 mainMarker.on('move', (evt) => {
   addressInput.value = evt.target.getLatLng();
 });
 
-
+let addMarker;
 function createMarker (map,markerData){
 
   const icon = L.icon({
@@ -61,7 +59,7 @@ function createMarker (map,markerData){
     iconAnchor: [20, 40],
   });
 
-  const addMarker = L.marker(
+  addMarker = L.marker(
     {
       lat : markerData.location.lat,
       lng:markerData.location.lng,
@@ -72,79 +70,69 @@ function createMarker (map,markerData){
   );
 
   addMarker
+    .addTo(map)
     .bindPopup(getArticle(markerData))
-    .addTo(map);
+    .setTooltipContent(getArticle(markerData));
 
+  mainMarker.setLatLng({
+    lat: 35.68386,
+    lng: 139.7635,
+  });
 
   return addMarker;
 }
-mainMarker.setLatLng({
-  lat: 35.68386,
-  lng: 139.7635,
-});
 
 
-function featuresFilter () {
-  const wifiFilter = document.querySelector('#filter-wifi');
-  const dishwasherFilter = document.querySelector('#filter-dishwasher');
-  const parkingFilter = document.querySelector('#filter-parking');
-  const washerFilter = document.querySelector('#filter-washer');
-  const elevatorFilter = document.querySelector('#filter-elevator');
-  const conditionerFilter = document.querySelector('#filter-conditioner');
+function selectFilter (markerData) {
+  const housingFeatures = document.querySelector('#housing-type');
+  const typeFilter = housingFeatures.value;
 
-  let rank = 0;
+  const priceFilter = document.querySelector('#housing-price');
+  const selectPrice = priceFilter.value;
 
-  if (wifiFilter.cheked) {
-    rank += 1;
-  }
-  if (dishwasherFilter.cheked) {
-    rank += 1;
-  }
-  if (parkingFilter.cheked) {
-    rank += 1;
-  }
-  if (washerFilter.cheked) {
-    rank += 1;
-  }
-  if (elevatorFilter.cheked) {
-    rank += 1;
-  }
-  if (conditionerFilter.cheked) {
-    rank += 1;
-  }
-  return rank;
+  const roomsFilter = document.querySelector('#housing-rooms');
+  const selectRooms = roomsFilter.value;
+
+  const guestsFilter = document.querySelector('#housing-guests');
+  const selectGuests = guestsFilter.value;
+
+  const checkFieldset = document.querySelector('#housing-features');
+  const checkFilter = checkFieldset.querySelectorAll('input');
+
+  const features = [];
+  checkFilter.forEach((item) => {
+
+    if (item.checked) {
+      features.push(item.value);
+    }
+  });
+
+  const filterMarkers = [];
+  let comparePrice = '';
+  serverMarkers.forEach((item) => {
+    if (item.offer.features.some(features)) {
+      filterMarkers.push(item);
+    }
+
+    if (item.offer.price < 10000) {
+      comparePrice = 'low';
+    } else if (item.offer.price > 10000 && item.offer.price < 50000) {
+      comparePrice = 'middle';
+    } else {
+      comparePrice = 'high';
+    }
+
+    if (item.offer.type === typeFilter) {
+      filterMarkers.push(item);
+    }
+
+  });
+
+  removeMarkers(markerData);
+  console.log(markerData);
+  paintFilterMarker(filterMarkers);
+  console.log(typeFilter, selectPrice, selectRooms, selectGuests, features);
 }
 
-const typeFilter = document.querySelector('#housing-type');
-typeFilter.addEventListener('change', () => {
 
-  const selectType = typeFilter.value;
-  const removeMarkers = document.querySelector('.leaflet-marker-pane');
-  if (selectType !== 'any') {
-    removeMarkers.remove();
-  }
-  markers.filter();
-
-});
-
-const priceFilter = document.querySelector('#housing-price');
-priceFilter.addEventListener('change', () => {
-
-  const selectPrice = priceFilter.value;
-});
-
-const roomsFilter = document.querySelector('#housing-rooms');
-roomsFilter.addEventListener('change', () => {
-	const selectRooms = roomsFilter.value;
-});
-
-const guestsFilter = document.querySelector('#housing-guests');
-guestsFilter.addEventListener('change', () => {
-	const selectGuests = guestsFilter.value;
-});
-
-// function () {
-// 	markers[i].offer.type === selectType
-// };
-
-export {setAddressInput};
+export {setAddressInput, createMarker, mymap};

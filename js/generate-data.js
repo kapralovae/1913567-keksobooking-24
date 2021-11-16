@@ -2,14 +2,8 @@ import {capacitySelect, roomSelect} from './form.js';
 
 
 const card = document.querySelector('#card').content;
-
 const addressInput = document.querySelector('#address');
-
-
-//const descriptionText = document.querySelector('#description');
-
 const article = card.querySelector('article');
-
 
 function getArticle (cardData) {
 
@@ -49,6 +43,16 @@ function getArticle (cardData) {
   popupFeature.textContent = cardData.offer.features;
   popupDescription.textContent = cardData.offer.description;
 
+  const typeFilter = document.querySelector('#housing-type');
+  typeFilter.addEventListener('change', () => {
+
+    const selectType = typeFilter.value;
+
+    if (popupType === selectType) {
+        }
+
+
+});
 
   popupAvatar.src = cardData.author.avatar;
 

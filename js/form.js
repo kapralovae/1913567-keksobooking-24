@@ -1,4 +1,6 @@
 //import {timeIn, timeOut,} from './generate-data.js';
+import { formForMarkers, resetForm, body } from './util.js';
+import { sendData } from './api.js';
 const naticeForm = document.querySelector('form.ad-form');
 const naticeFieldset = naticeForm.querySelectorAll('fieldset');
 const mapForm = document.querySelector('form.map__filters');
@@ -162,5 +164,29 @@ timeOut.addEventListener('change', () => {
   timeIn.value = timeOut.value;
 });
 
+const successMessage = document.querySelector('#success').content.cloneNode(true);
+const successParagraphMessage = successMessage.querySelector('p');
+successParagraphMessage.textContent = 'Данные успешно отправлены';
+const successModalWindow = successMessage.querySelector('div');
+const errorMessage = document.querySelector('#error').content;
+const copyErrorMessage = errorMessage.cloneNode(true);
+const errorParagraphMessage = copyErrorMessage.querySelector('p');
+errorParagraphMessage.textContent = 'Всё плохо!';
+const errorModalWindow = copyErrorMessage.querySelector('div');
 
-export {titleInput, inActivePage, activePage, valueNumber, capacitySelect, roomSelect, typeSelect, timeIn, timeOut};
+
+function setUserFormSubmit (onSuccess) {
+  formForMarkers.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    const formData = new FormData(formForMarkers);
+    successModalWindow.style.display = 'none';
+    errorModalWindow.style.display = 'none';
+    body.insertAdjacentElement('beforeend', successModalWindow);
+    body.insertAdjacentElement('beforeend', errorModalWindow);
+    sendData(() => onSuccess(), formData);
+
+  });}
+
+setUserFormSubmit(resetForm);
+
+export {titleInput, inActivePage, activePage, valueNumber, capacitySelect, roomSelect, typeSelect, timeIn, timeOut, successModalWindow, errorModalWindow};
