@@ -31,7 +31,7 @@ function removeMarkers () {
 
 }
 
-function selectFilter (markerData) {
+function selectFilter () {
   const housingFeatures = document.querySelector('#housing-type');
   const typeFilter = housingFeatures.value;
 

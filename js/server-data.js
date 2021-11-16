@@ -69,8 +69,6 @@ function createMarker (map, markerData){
       icon,
     },
   );
-  console.log(markerData.location.lat.toFixed(5));
-
 
   addMarker
     .bindPopup(getArticle(markerData))
