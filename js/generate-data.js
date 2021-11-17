@@ -7,9 +7,6 @@ const article = card.querySelector('article');
 
 function getArticle (cardData) {
 
-  const fragment = document.createDocumentFragment();
-
-
   const copyArticle = article.cloneNode(true);
   const popupTitle = copyArticle.querySelector('.popup__title');
   const popupAddress = copyArticle.querySelector('.popup__text--address');
@@ -44,17 +41,6 @@ function getArticle (cardData) {
   popupDescription.textContent = cardData.offer.description;
 
   popupAvatar.src = cardData.author.avatar;
-
-  // fragment.appendChild(popupAvatar);
-  // fragment.appendChild(popupTitle);
-  // fragment.appendChild(popupAddress);
-  // fragment.appendChild(popupPrice);
-  // fragment.appendChild(popupType);
-  // fragment.appendChild(popupCapacity);
-  // fragment.appendChild(popupTime);
-  // fragment.appendChild(popupFeature);
-  // fragment.appendChild(popupDescription);
-  // fragment.appendChild(popupPhoto);
 
   return copyArticle;
 }
