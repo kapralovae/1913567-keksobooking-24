@@ -73,7 +73,6 @@ function createMarker (map,markerData){
     .bindPopup(getArticle(markerData))
     .addTo(map);
 
-
   return addMarker;
 }
 mainMarker.setLatLng({

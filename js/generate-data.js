@@ -13,9 +13,6 @@ const article = card.querySelector('article');
 
 function getArticle (cardData) {
 
-  const fragment = document.createDocumentFragment();
-
-
   const copyArticle = article.cloneNode(true);
   const popupTitle = copyArticle.querySelector('.popup__title');
   const popupAddress = copyArticle.querySelector('.popup__text--address');
