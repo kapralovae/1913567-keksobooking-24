@@ -52,4 +52,11 @@ function resetForm () {
     }
   });}
 
+const buttonReset = sectionMarkers.querySelector('.ad-form__reset');
+buttonReset.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  formForMarkers.reset();
+  setAddressInput();
+});
+
 export {isEscapeKey, showAlert, resetForm, formForMarkers, body};
