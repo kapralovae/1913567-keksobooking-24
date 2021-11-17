@@ -49,18 +49,7 @@ function getArticle (cardData) {
 
   popupAvatar.src = cardData.author.avatar;
 
-  fragment.appendChild(popupAvatar);
-  fragment.appendChild(popupTitle);
-  fragment.appendChild(popupAddress);
-  fragment.appendChild(popupPrice);
-  fragment.appendChild(popupType);
-  fragment.appendChild(popupCapacity);
-  fragment.appendChild(popupTime);
-  fragment.appendChild(popupFeature);
-  fragment.appendChild(popupDescription);
-  fragment.appendChild(popupPhoto);
-
-  return fragment;
+  return copyArticle;
 }
 
 export {getArticle, addressInput, roomSelect, capacitySelect};

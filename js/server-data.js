@@ -67,10 +67,7 @@ function createMarker (map,markerData){
     {
       icon,
     },
-  );
-
-  addMarker
-    .bindPopup(getArticle(markerData))
+  ).bindPopup(getArticle(markerData))
     .addTo(map);
 
   return addMarker;
