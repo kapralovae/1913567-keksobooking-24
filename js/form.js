@@ -185,8 +185,33 @@ function setUserFormSubmit (onSuccess) {
     body.insertAdjacentElement('beforeend', errorModalWindow);
     sendData(() => onSuccess(), formData);
 
-  });}
+  });
+}
+const avatarInput = document.querySelector('#avatar');
+
+
+avatarInput.addEventListener('change', () => {
+  const avatarImg = document.querySelector('#preview_avatar');
+  avatarImg.src = URL.createObjectURL(avatarInput.files[0]);
+  avatarImg.onload = function () {
+    URL.revokeObjectURL(avatarImg.src);
+  };
+  console.log(avatarImg);
+});
+const photoInput = document.querySelector('#images');
+
+photoInput.addEventListener('change', () => {
+  const divPhotos = document.querySelector('.ad-form__upload');
+  const pictures = document.querySelector('#pictures');
+  pictures.insertAdjacentHTML('beforeend', divPhotos);
+  pictures.src = URL.createObjectURL(photoInput.files[0]);
+  pictures.onload = function () {
+    URL.revokeObjectURL(pictures.src);
+  };
+console.log(pictures);
+});
 
 setUserFormSubmit(resetForm);
+
 
 export {titleInput, inActivePage, activePage, valueNumber, capacitySelect, roomSelect, typeSelect, timeIn, timeOut, successModalWindow, errorModalWindow};
