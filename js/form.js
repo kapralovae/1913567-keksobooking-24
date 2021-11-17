@@ -196,7 +196,7 @@ avatarInput.addEventListener('change', () => {
   avatarImg.onload = function () {
     URL.revokeObjectURL(avatarImg.src);
   };
-  console.log(avatarImg);
+
 });
 const photoInput = document.querySelector('#images');
 
@@ -208,7 +208,7 @@ photoInput.addEventListener('change', () => {
   pictures.onload = function () {
     URL.revokeObjectURL(pictures.src);
   };
-console.log(pictures);
+
 });
 
 setUserFormSubmit(resetForm);
