@@ -17,11 +17,11 @@ function getData () {
 }
 
 function paintMarkers (markers) {
-  const paintMarkers = [];
+  const paintMarkersMassive = [];
   for(let i = 0; i < markers.length; i++) {
-    paintMarkers.push(createMarker(mymap, markers[i]));
+    paintMarkersMassive.push(createMarker(mymap, markers[i]));
   }
-  return paintMarkers;
+  return paintMarkersMassive;
 }
 
 function removeMarkers () {
