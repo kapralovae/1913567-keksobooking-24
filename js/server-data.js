@@ -52,6 +52,7 @@ mainMarker.on('move', (evt) => {
 });
 
 let addMarker;
+
 function createMarker (map, markerData){
 
   const icon = L.icon({
@@ -68,10 +69,7 @@ function createMarker (map, markerData){
     {
       icon,
     },
-  );
-
-  addMarker
-    .bindPopup(getArticle(markerData))
+  ).bindPopup(getArticle(markerData))
     .addTo(map);
 
 

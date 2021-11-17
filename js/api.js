@@ -58,9 +58,6 @@ function selectFilter () {
   const filterMarkers = [];
   let comparePrice = '';
   serverMarkers.forEach((item) => {
-    // if (item.offer.features.some(features)) {
-    //   filterMarkers.push(item);
-    // }
 
     if (item.offer.price < 10000) {
       comparePrice = 'low';
