@@ -3,13 +3,7 @@ import {capacitySelect, roomSelect} from './form.js';
 
 const card = document.querySelector('#card').content;
 
-const addressInput = document.querySelector('#address');
-
-
-//const descriptionText = document.querySelector('#description');
-
 const article = card.querySelector('article');
-
 
 function getArticle (cardData) {
 
@@ -46,10 +40,9 @@ function getArticle (cardData) {
   popupFeature.textContent = cardData.offer.features;
   popupDescription.textContent = cardData.offer.description;
 
-
   popupAvatar.src = cardData.author.avatar;
 
   return copyArticle;
 }
 
-export {getArticle, addressInput, roomSelect, capacitySelect};
+export {getArticle, roomSelect, capacitySelect};

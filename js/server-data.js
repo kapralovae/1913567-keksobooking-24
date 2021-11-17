@@ -1,6 +1,8 @@
-import {getArticle, addressInput} from './generate-data.js';
+import {getArticle} from './generate-data.js';
 import {inActivePage, activePage} from './form.js';
+import { filters, getData} from './api.js';
 
+const addressInput = document.querySelector('#address');
 
 inActivePage();
 const mainPinIcon = L.icon({
@@ -26,6 +28,13 @@ function setAddressInput() {
 const mymap = L.map('map-canvas').on('load', () => {
   setAddressInput();
   activePage ();
+  getData();
+  document.querySelectorAll('.map__filter').forEach((item) => {
+    item.onchange = filters;
+  });
+  document.querySelectorAll('.map__checkbox').forEach((item) => {
+    item.onchange = filters;
+  });
 }).setView([35.68386, 139.7635], 13);
 
 L.tileLayer(
@@ -38,20 +47,13 @@ L.tileLayer(
 
 mainMarker.addTo(mymap);
 
-fetch('https://24.javascript.pages.academy/keksobooking/data')
-  .then((response) => response.json())
-  .then((markers) => {
-    for(let i=0;i<markers.length - 35;i++) {
-      createMarker(mymap,markers[i]);
-    }
-  });
-
 mainMarker.on('move', (evt) => {
   addressInput.value = evt.target.getLatLng();
 });
 
+let addMarker;
 
-function createMarker (map,markerData){
+function createMarker (map, markerData){
 
   const icon = L.icon({
     iconUrl: 'img/pin.svg',
@@ -59,10 +61,10 @@ function createMarker (map,markerData){
     iconAnchor: [20, 40],
   });
 
-  const addMarker = L.marker(
+  addMarker = L.marker(
     {
       lat : markerData.location.lat,
-      lng:markerData.location.lng,
+      lng : markerData.location.lng,
     },
     {
       icon,
@@ -72,8 +74,5 @@ function createMarker (map,markerData){
 
   return addMarker;
 }
-mainMarker.setLatLng({
-  lat: 35.68386,
-  lng: 139.7635,
-});
-export {setAddressInput};
+
+export {setAddressInput, createMarker, mymap};
