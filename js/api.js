@@ -69,7 +69,7 @@ function selectFilter () {
 
     if ( (item.offer.type === typeFilter || typeFilter==='any')
         && (comparePrice === selectPrice || selectPrice==='any')
-        && (String(item.offer.rooms) ===selectRooms || selectRooms==='any')
+        && (String(item.offer.rooms) === selectRooms || selectRooms==='any')
         && (String(item.offer.guests) === selectGuests || selectGuests==='any')
     )  {
       let isAdd = true;
