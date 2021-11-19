@@ -75,4 +75,4 @@ function createMarker (map, markerData){
   return addMarker;
 }
 
-export {setAddressInput, createMarker, mymap};
+export {setAddressInput, createMarker, mymap, mainMarker};

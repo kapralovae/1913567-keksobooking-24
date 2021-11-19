@@ -1,4 +1,3 @@
-//import {timeIn, timeOut,} from './generate-data.js';
 import { formForMarkers, resetForm, body } from './util.js';
 import { sendData } from './api.js';
 const naticeForm = document.querySelector('form.ad-form');
@@ -188,10 +187,13 @@ function setUserFormSubmit (onSuccess) {
   });
 }
 const avatarInput = document.querySelector('#avatar');
+const avatarImg = document.querySelector('#preview_avatar');
+const divPhotos = document.querySelector('.ad-form__upload');
+const pictures = document.querySelector('#pictures');
 
+setUserFormSubmit(resetForm);
 
 avatarInput.addEventListener('change', () => {
-  const avatarImg = document.querySelector('#preview_avatar');
   avatarImg.src = URL.createObjectURL(avatarInput.files[0]);
   avatarImg.onload = function () {
     URL.revokeObjectURL(avatarImg.src);
@@ -201,8 +203,6 @@ avatarInput.addEventListener('change', () => {
 const photoInput = document.querySelector('#images');
 
 photoInput.addEventListener('change', () => {
-  const divPhotos = document.querySelector('.ad-form__upload');
-  const pictures = document.querySelector('#pictures');
   pictures.insertAdjacentHTML('beforeend', divPhotos);
   pictures.src = URL.createObjectURL(photoInput.files[0]);
   pictures.onload = function () {
@@ -211,7 +211,5 @@ photoInput.addEventListener('change', () => {
 
 });
 
-setUserFormSubmit(resetForm);
 
-
-export {titleInput, inActivePage, activePage, valueNumber, capacitySelect, roomSelect, typeSelect, timeIn, timeOut, successModalWindow, errorModalWindow};
+export {titleInput, inActivePage, activePage, valueNumber, capacitySelect, roomSelect, typeSelect, timeIn, timeOut, successModalWindow, errorModalWindow, avatarImg, pictures};
