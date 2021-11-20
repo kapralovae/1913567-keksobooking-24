@@ -37,7 +37,6 @@ function inActivePage () {
   mapForm.classList.add('ad-form--disabled');
 }
 
-//inActivePage ();
 
 function activePage () {
   naticeForm.classList.remove('ad-form--disabled');
@@ -54,7 +53,7 @@ function activePage () {
     mapFieldset[i].removeAttribute('disabled', '');
   }
 }
-//activePage ();
+
 
 titleInput.addEventListener('input', () => {
   const valueLength = titleInput.value.length;
